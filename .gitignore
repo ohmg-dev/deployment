@@ -1,0 +1,159 @@
+node_modules
+
+# Lambda deployment package
+package.zip
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+titiler-*.xml
+*.cover
+.hypothesis/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# dotenv
+.env
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+
+cdk.out/
+deployment/k8s/titiler/values-test.yaml
+
+.vscode/
+
+dev_notebooks/*
+
+
+# ==============================================================================
+# OpenTofu / Terraform .gitignore
+# ==============================================================================
+
+# Local cache directories containing downloaded providers and modules
+**/.terraform/
+**/.tofu/
+
+# Local state files (Never commit these; they contain unencrypted infrastructure secrets)
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Exclude all secret/variable files (Contain passwords, tokens, API keys)
+*.tfvars
+*.tfvars.json
+
+# ...But explicitly allow committing generic example variable templates
+!example.tfvars
+!example.tfvars.json
+
+# Local-only configuration override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Generated binary plan files (Can contain transient secrets)
+*.tfplan
+
+# CLI configuration files
+.terraformrc
+terraform.rc
+
+# ==============================================================================
+# Dependency Lock File (RECOMMENDED TO COMMIT)
+# ==============================================================================
+# The lock file ensures consistent provider versions across machines and CI/CD pipelines.
+# Un-comment the line below ONLY if you intentionally want to avoid tracking versions.
+# .terraform.lock.hcl
