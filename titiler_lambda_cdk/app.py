@@ -1,12 +1,20 @@
 """Construct App."""
 
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any
 
-from aws_cdk import App, CfnOutput, Duration, Stack, Tags
+from aws_cdk import (
+    App,
+    CfnOutput,
+    Duration,
+    Stack,
+    Tags,
+    aws_events,
+    aws_events_targets,
+    aws_lambda,
+)
 from aws_cdk import aws_apigatewayv2 as apigw
 from aws_cdk import aws_iam as iam
-from aws_cdk import aws_lambda
 from aws_cdk import aws_logs as logs
 from aws_cdk.aws_apigatewayv2_integrations import HttpLambdaIntegration
 from constructs import Construct
@@ -19,13 +27,13 @@ class StackSettings(BaseSettings):
     name: str = "titiler"
     stage: str = "production"
 
-    owner: Optional[str] = None
-    client: Optional[str] = None
+    owner: str | None = None
+    client: str | None = None
 
     # Default options are optimized for CloudOptimized GeoTIFF
     # For more information on GDAL env see: https://gdal.org/user/configoptions.html
     # or https://developmentseed.org/titiler/advanced/performance_tuning/
-    env: Dict = {
+    env: dict = {
         "GDAL_CACHEMAX": "200",  # 200 mb
         "GDAL_DISABLE_READDIR_ON_OPEN": "EMPTY_DIR",
         "GDAL_INGESTED_BYTES_AT_OPEN": "32768",  # get more bytes when opening the files.
@@ -41,7 +49,7 @@ class StackSettings(BaseSettings):
     # specific private and public buckets MUST be added if you want to use s3:// urls
     # You can whitelist all bucket by setting `*`.
     # ref: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-arn-format.html
-    buckets: List = []
+    buckets: list = []
 
     # S3 key pattern to limit the access to specific items (e.g: "my_data/*.tif")
     key: str = "*"
@@ -55,7 +63,7 @@ class StackSettings(BaseSettings):
 
     # The maximum of concurrent executions you want to reserve for the function.
     # Default: - No specific limit - account limit.
-    max_concurrent: Optional[int] = None
+    max_concurrent: int | None = None
 
     model_config = SettingsConfigDict(env_prefix="TITILER_STACK_", env_file=".env")
 
@@ -77,9 +85,9 @@ class titilerLambdaStack(Stack):
         memory: int = 1024,
         timeout: int = 30,
         runtime: aws_lambda.Runtime = aws_lambda.Runtime.PYTHON_3_14,
-        concurrent: Optional[int] = None,
-        permissions: Optional[List[iam.PolicyStatement]] = None,
-        environment: Optional[Dict] = None,
+        concurrent: int | None = None,
+        permissions: list[iam.PolicyStatement] | None = None,
+        environment: dict | None = None,
         code_dir: str = "./",
         **kwargs: Any,
     ) -> None:

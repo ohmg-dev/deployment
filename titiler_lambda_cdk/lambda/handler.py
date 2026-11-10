@@ -4,7 +4,6 @@ import asyncio
 import logging
 
 from mangum import Mangum
-
 from titiler.application.main import app
 from titiler.application.settings import ApiSettings
 
