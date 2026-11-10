@@ -4,8 +4,40 @@ import asyncio
 import logging
 
 from mangum import Mangum
-from titiler.application.main import app
+from rio_tiler.io import Reader
+from titiler.application.main import app, titiler_templates
 from titiler.application.settings import ApiSettings
+from titiler.core.factory import (
+    TilerFactory,
+)
+from titiler.extensions import (
+    cogValidateExtension,
+    cogViewerExtension,
+    stacExtension,
+    wmsExtension,
+    wmtsExtension,
+)
+
+cog = TilerFactory(
+    reader=Reader,
+    router_prefix="/cog",
+    add_ogc_maps=True,
+    extensions=[
+        cogValidateExtension(),
+        cogViewerExtension(),
+        stacExtension(),
+        wmtsExtension(),
+        wmsExtension(),
+    ],
+    enable_telemetry=False,
+    templates=titiler_templates,
+)
+
+app.include_router(
+    cog.router,
+    prefix="/cog",
+    tags=["Cloud Optimized GeoTIFF"],
+)
 
 try:
     asyncio.get_event_loop()

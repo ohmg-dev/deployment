@@ -43,6 +43,8 @@ class StackSettings(BaseSettings):
         "PYTHONWARNINGS": "ignore",
         "VSI_CACHE": "TRUE",
         "VSI_CACHE_SIZE": "5000000",  # 5 MB (per file-handle)
+        "TITILER_API_DISABLE_COG": "TRUE", # disable COG so we can recreate it +wmsExtension
+        "TITILER_API_DISABLE_ZARR": "TRUE", # disable Zarr
     }
 
     # S3 bucket names where TiTiler could do HEAD and GET Requests
