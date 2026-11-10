@@ -130,6 +130,14 @@ class titilerLambdaStack(Stack):
         )
         CfnOutput(self, "Endpoint", value=api.url)
 
+        # Lambda warmer
+        eventRule = aws_events.Rule(
+          self,
+          "titiler-warmer",
+          schedule=aws_events.Schedule.cron(minute="0/15")
+        )
+        eventRule.add_target(aws_events_targets.LambdaFunction(lambda_function))
+
 
 app = App()
 settings = StackSettings()
